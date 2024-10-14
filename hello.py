@@ -1,18 +1,26 @@
-from flask import Flask, request
+from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
+from flask_moment import Moment
+from datetime import datetime
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
+moment = Moment(app)
 
 @app.route('/')
 def hello_world():
-    return '<h1>Avaliação Contínua: Aula 030</h1><ul><li><a href="/">Home</a></li><li><a href="/user/Maria%20Eduarda/PT3025594/IFSP">Identificação</a></li><li><a href="/contextorequisicao">Contexto da requisição</a></li></ul>'
+   now = datetime.utcnow()
+   return render_template('index.html', current_time=now)
 
-@app.route('/user/<name>/<register>/<institution>')
-def user(name, register, institution):
-    return '<h1>Avaliação Contínua: Aula 030</h1><h1>Aluno: {n}</h1><h1>Prontuário: {r}</h1><h1>Instituição: {i}</h1> <a href="/">Voltar</a>'.format(n = name, r=register, i=institution)
 
-@app.route ('/contextorequisicao')
-def contexto_requisicao():
-  browser = request.headers.get('User-Agent')
-  ip = request.remote_addr
-  host = request.headers.get('Host')
-  return '<h1>Avaliação Contínua: Aula 030</h1><h1>Seu navegador é: {}</h1><h1>O IP do computador remoto é: {}</h1><h1>O host da aplicação é: {}</h1><a href="/">Voltar</a>'.format(browser, ip, host)
+@app.route('/user/<name>')
+def user(name):
+    return render_template('user.html', name=name)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_internal_server_error(e):
+    return render_template('500.html'), 500
