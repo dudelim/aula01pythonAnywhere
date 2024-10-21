@@ -5,14 +5,27 @@
 {{ super() }}
 
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
 {% endblock %}
 {% block navbar%}
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-    <a href="/" class="navbar-brand">Flasky</a>
+
+<nav class="navbar navbar-inverse navbar-expand-lg">
+    <div class="container">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+      <div class="collapse navbar-collapse">
+
+        <a href="/" class="navbar-brand">Avaliação Contínua: <strong>Aula 040</strong></a>
   <ul class="nav navbar-nav">
     <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+    <li class="nav-item"><a href="/user/Maria%20Eduarda/PT3025594/IFSP" class="nav-link">Identificação</a></li>
+    <li class="nav-item"><a href="/contextorequisicao/Maria%20Eduarda" class="nav-link">Contexto da requisição</a></li>
   </ul>
+</div>
     </div>
 
 </nav>

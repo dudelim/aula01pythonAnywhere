@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -13,10 +13,16 @@ def hello_world():
    return render_template('index.html', current_time=now)
 
 
-@app.route('/user/<name>')
-def user(name):
-    return render_template('user.html', name=name)
+@app.route('/user/<name>/<register>/<institution>')
+def user(name, register, institution):
+    return render_template('user.html', name=name, register=register, institution=institution)
 
+@app.route('/contextorequisicao/<name>')
+def contexto_requisicao(name):
+    browser = request.headers.get('User-Agent')
+    ip = request.remote_addr
+    host = request.host
+    return render_template('contexto_requisicao.html',name=name, browser=browser, ip=ip, host=host)
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
